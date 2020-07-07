@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"go.zhenhao.com/world/container"
+	"github.com/zhenhao/gofun/container"
 )
-
 func main() {
 	s := container.NewQueue()
 	for i := 0; i < 10; i++ {

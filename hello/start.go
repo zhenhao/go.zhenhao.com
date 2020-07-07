@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go.zhenhao.com/hello/utils"
+	"github.com/zhenhao/gofun/hello/utils"
 )
 
 func main() {

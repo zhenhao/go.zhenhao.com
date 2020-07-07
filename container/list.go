@@ -127,6 +127,9 @@ func (l *List) Reverse() {
 	}
 
 	p := l.head
+	l.head = l.tail
+	l.tail = p
+
 	for p != nil {
 		q := p.next
 
@@ -134,9 +137,6 @@ func (l *List) Reverse() {
 		p.prev = q
 		p = q
 	}
-	h := l.head
-	l.head = l.tail
-	l.tail = h
 }
 
 func (l *List) Len() uint {
