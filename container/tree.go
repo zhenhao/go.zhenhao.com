@@ -5,38 +5,71 @@ import (
 )
 
 type treeNode struct {
-	left  *treeNode
-	ele   Element
-	right *treeNode
+	left   *treeNode
+	right  *treeNode
+	parent *treeNode
+	ele    Element
+	level  uint
 }
 
 func newTreeNode(ele Element) *treeNode {
-	return &treeNode{nil, ele, nil}
+	return &treeNode{
+		ele:    ele,
+		left:   nil,
+		right:  nil,
+		level:  0,
+		parent: nil,
+	}
 }
 
-func (n *treeNode) insert(ele Element) {
-	if ele.(int) > n.ele.(int) {
+func (n *treeNode) insert(node *treeNode) {
+	if node.ele.(int) > n.ele.(int) {
 		if nil == n.right {
-			n.right = newTreeNode(ele)
+			n.right = node
+			node.parent = n
+			node.level = n.level + 1
 		} else {
-			n.right.insert(ele)
+			n.right.insert(node)
 		}
 	} else {
 		if nil == n.left {
-			n.left = newTreeNode(ele)
+			n.left = node
+			node.parent = n
+			node.level = n.level + 1
 		} else {
-			n.left.insert(ele)
+			n.left.insert(node)
 		}
 	}
 }
 
-func (n *treeNode) dump() {
+func (n *treeNode) traversal() {
 	if nil != n.left {
-		n.left.dump()
+		n.left.traversal()
 	}
-	fmt.Printf("%d ", n.ele)
+	fmt.Printf("%d(%d) ", n.ele, n.level)
 	if nil != n.right {
-		n.right.dump()
+		n.right.traversal()
+	}
+}
+
+func (n *treeNode) breadthFirst() {
+	q := NewQueue()
+	q.Push(n)
+
+	for !q.Empty() {
+		node := q.Pop().(*treeNode)
+		if nil == node.parent {
+			fmt.Printf("%d ", node.ele)
+		} else {
+			fmt.Printf("%d(%d) ", node.ele, node.parent.ele)
+		}
+		if nil != node.left {
+			q.Push(node.left)
+		}
+
+		if nil != node.right {
+			q.Push(node.right)
+		}
 	}
 }
 
@@ -49,17 +82,28 @@ func NewTree() *Tree {
 }
 
 func (t *Tree) Insert(ele Element) {
+	node := newTreeNode(ele)
+
 	if nil == t.root {
-		t.root = newTreeNode(ele)
+		node.level = 1
+		t.root = node
 	} else {
-		t.root.insert(ele)
+		t.root.insert(node)
 	}
 }
 
-func (t *Tree) Dump() {
+func (t *Tree) Traversal() {
 	if nil == t.root {
 		return
-	} else {
-		t.root.dump()
 	}
+
+	t.root.traversal()
+}
+
+func (t *Tree) BreadthFirst() {
+	if nil == t.root {
+		return
+	}
+
+	t.root.breadthFirst()
 }
