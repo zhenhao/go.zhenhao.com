@@ -117,6 +117,7 @@ func (t *Tree) TraversalRecursive() {
 	}
 
 	t.root.traversalRecursive()
+	fmt.Println()
 }
 
 func (t *Tree) Traversal() {
@@ -125,6 +126,7 @@ func (t *Tree) Traversal() {
 	}
 
 	t.root.traversal()
+	fmt.Println()
 }
 
 func (t *Tree) BreadthFirst() {
@@ -133,4 +135,5 @@ func (t *Tree) BreadthFirst() {
 	}
 
 	t.root.breadthFirst()
+	fmt.Println()
 }

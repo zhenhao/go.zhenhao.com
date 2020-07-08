@@ -1,25 +1,22 @@
 package sort
 
 func QuickSort(arr []int) {
-	i, j := 0, len(arr)-1
-
-	if (i >= j) {
+	if len(arr) < 2 {
 		return
 	}
 
-	p := arr[0]
+	i, j := 0, len(arr)-1
+	target := arr[0]
 
 	for i < j {
-		for arr[j] >= p && j > i {
+		for arr[j] >= target && j > i {
 			j--
 		}
-
 		arr[i], arr[j] = arr[j], arr[i]
 
-		for arr[i] <= p && i < j {
+		for arr[i] <= target && i < j {
 			i++
 		}
-
 		arr[i], arr[j] = arr[j], arr[i]
 	}
 

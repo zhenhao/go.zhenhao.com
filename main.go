@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/zhenhao/gofun/container"
+	"github.com/zhenhao/gofun/sort"
 	"math/rand"
 	"time"
 )
@@ -12,12 +13,16 @@ func init() {
 }
 
 func main() {
+	var x [10]int
+
 	t := container.NewTree()
 	for i := 0; i < 10; i++ {
-		t.Insert(rand.Intn(100))
+		x[i] = rand.Intn(100)
+		t.Insert(x[i])
 	}
 
 	t.Traversal()
-	fmt.Println()
 	t.TraversalRecursive()
+	sort.QuickSort(x[:])
+	fmt.Println(x)
 }
