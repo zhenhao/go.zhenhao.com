@@ -42,13 +42,32 @@ func (n *treeNode) insert(node *treeNode) {
 	}
 }
 
-func (n *treeNode) traversal() {
+func (n *treeNode) traversalRecursive() {
 	if nil != n.left {
-		n.left.traversal()
+		n.left.traversalRecursive()
 	}
 	fmt.Printf("%d(%d) ", n.ele, n.level)
 	if nil != n.right {
-		n.right.traversal()
+		n.right.traversalRecursive()
+	}
+}
+
+func (n *treeNode) traversal() {
+	s := NewStack()
+	p := n
+	for nil != p {
+		s.Push(p)
+		p = p.left
+	}
+
+	for !s.Empty() {
+		node := s.Pop().(*treeNode)
+		fmt.Printf("%d(%d) ", node.ele, node.level)
+		p = node.right
+		for nil != p {
+			s.Push(p)
+			p = p.left
+		}
 	}
 }
 
@@ -90,6 +109,14 @@ func (t *Tree) Insert(ele Element) {
 	} else {
 		t.root.insert(node)
 	}
+}
+
+func (t *Tree) TraversalRecursive() {
+	if nil == t.root {
+		return
+	}
+
+	t.root.traversalRecursive()
 }
 
 func (t *Tree) Traversal() {

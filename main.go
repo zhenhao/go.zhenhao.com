@@ -19,5 +19,5 @@ func main() {
 
 	t.Traversal()
 	fmt.Println()
-	t.BreadthFirst()
+	t.TraversalRecursive()
 }
