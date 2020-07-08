@@ -14,7 +14,7 @@ func QuickSort(arr []int) {
 		}
 		arr[i], arr[j] = arr[j], arr[i]
 
-		for arr[i] <= target && i < j {
+		for arr[i] < target && i < j {
 			i++
 		}
 		arr[i], arr[j] = arr[j], arr[i]
